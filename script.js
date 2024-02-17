@@ -5,5 +5,8 @@ var mapOptions = {
     mapTypeId: google.maps.MapTypeId.ROADMAP
 
 };
+var input1 = document.getElementById('userLocation1').value;
+var input2 = document.getElementById('userLocation2').value;
+
 
 var map = new google.maps.Map(document.getElementById('googleMap'), mapOptions);

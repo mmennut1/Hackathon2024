@@ -70,3 +70,15 @@ select{
     border-radius:10px;
     border: 4px ridge goldenrod;
   }
+
+  #rightimg{
+    width: 45%;
+    float: right;
+    padding: 10px;
+  }
+
+#leftimg{
+    width: 45%;
+    float: left;
+    padding-left: 10px;
+  }

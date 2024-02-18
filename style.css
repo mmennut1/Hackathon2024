@@ -28,8 +28,8 @@ body {
 
 div {
     text-align: center;
-    padding: 10px;
     color: lavenderblush;
+    padding: 10px;
     text-shadow: 4px 4px 4px black;
 }
 
@@ -37,3 +37,4 @@ input {
     border: 3px ridge black;
     font-size: 20px;
 }
+

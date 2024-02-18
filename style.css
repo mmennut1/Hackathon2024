@@ -39,6 +39,12 @@ body {
     font-family: "Papyrus", fantasy;
 }
 
+#radius {
+    border-radius:10px;
+    border: 4px ridge goldenrod;
+    font-family: "Papyrus", fantasy;
+}
+
 div {
     text-align: center;
     color: lavenderblush;

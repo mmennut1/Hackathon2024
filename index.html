@@ -1,35 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset = "UTF-8">
-  <meta name="viewport" content = "width=device-width, initial-scale=1.0">
-  <title>Scenic Route Map</title>
-  <link rel="stylesheet" href="style.css"> 
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Google Maps Navigation</title>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDXTd7reskVOLr6IbqE5HM91IEStlxskQc&libraries=places"></script>
+<script>
+  function initMap() {
+    const directionsService = new google.maps.DirectionsService();
+    const directionsRenderer = new google.maps.DirectionsRenderer();
+    const map = new google.maps.Map(document.getElementById("map"), {
+      zoom: 7,
+      center: { lat: 41.85, lng: -87.65 } // Default center (Chicago)
+    });
+    directionsRenderer.setMap(map);
+
+    const startInput = document.getElementById("start");
+    const endInput = document.getElementById("end");
+
+    const startAutocomplete = new google.maps.places.Autocomplete(startInput);
+    startAutocomplete.bindTo("bounds", map);
+
+    const endAutocomplete = new google.maps.places.Autocomplete(endInput);
+    endAutocomplete.bindTo("bounds", map);
+
+    const onChangeHandler = function () {
+      calculateAndDisplayRoute(directionsService, directionsRenderer);
+    };
+    document.getElementById("show-route").addEventListener("click", onChangeHandler);
+  }
+
+  function calculateAndDisplayRoute(directionsService, directionsRenderer) {
+    const start = document.getElementById("start").value;
+    const end = document.getElementById("end").value;
+    directionsService.route(
+      {
+        origin: start,
+        destination: end,
+        travelMode: google.maps.TravelMode.DRIVING,
+      },
+      (response, status) => {
+        if (status === "OK") {
+          directionsRenderer.setDirections(response);
+        } else {
+          window.alert("Directions request failed due to " + status);
+        }
+      }
+    );
+  }
+</script>
 </head>
 <body>
-  <div class = "TitleName">
-    <div class = "container-fluid">
-      <h1>The Scenic Route Between Locations of Choice</h1>
-    </div>
-
-    <div>
-      Enter Location 1: <input id="userLocation1">
-    </div>
-    <div>
-      Enter Location 2: <input id="userLocation2">
-    </div>
-    <button>Go!</button>
-
-    <div class="container-fluid">
-      <div id="googleMap">
-
-      </div>
-      <div id="output">
-
-      </div>
-  </div>
-  </div>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDXTd7reskVOLr6IbqE5HM91IEStlxskQc&libraries=places"></script>
-  <script src="script.js"></script>
+<div>
+  <label for="start">Start:</label>
+  <input type="text" id="start" placeholder="Enter starting location">
+</div>
+<div>
+  <label for="end">End:</label>
+  <input type="text" id="end" placeholder="Enter destination">
+</div>
+<button id="show-route">Show Route</button>
+<div id="map" style="height: 400px; width: 100%;"></div>
+<script>
+  initMap();
+</script>
 </body>
 </html>

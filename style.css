@@ -16,9 +16,8 @@ h1{
 
 body {
     margin: 0;
-    font-weight: bold;
     font-size: 25px;
-    font-family: "Papyrus", fantasy;
+    font-family: 'ITC Cheltenham Std', sans-serif;
     background-image: url("pattern.png");
     background-position: left 20% top;
 }
@@ -33,24 +32,24 @@ body {
 #start {
     border-radius:10px;
     border: 4px ridge goldenrod;
-    font-family: "Papyrus", fantasy;
+    font-family: 'ITC Cheltenham Std', sans-serif;
 }
 
 #end {
     border-radius:10px;
     border: 4px ridge goldenrod;
-    font-family: "Papyrus", fantasy;
+    font-family: 'ITC Cheltenham Std', sans-serif;
 }
 
 #radius {
     border-radius:10px;
     border: 4px ridge goldenrod;
-    font-family: "Papyrus", fantasy;
+    font-family: 'ITC Cheltenham Std', sans-serif;
 }
 
 
 #OriginDestination {
-    font-family: "Papyrus", fantasy;
+    font-family: 'ITC Cheltenham Std', sans-serif;
     text-align: center;
     color: lavenderblush;
     text-shadow: 4px 4px 4px black;
@@ -60,7 +59,6 @@ div {
     text-align: center;
     color: lavenderblush;
     padding: 10px;
-    font-weight: bold;
 }
 
 input {
@@ -69,7 +67,7 @@ input {
 }
 
 button {
-    font-family: "Papyrus", fantasy;
+    font-family: 'ITC Cheltenham Std', sans-serif;
     color: black;
     border: 4px ridge goldenrod;
     border-radius:10px;
@@ -78,7 +76,7 @@ button {
 
 select{
     border:none;
-    font-family: "Papyrus", fantasy;
+    font-family: 'ITC Cheltenham Std', sans-serif;
     border-radius:10px;
     border: 4px ridge goldenrod;
     font-size: 18px;

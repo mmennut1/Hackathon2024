@@ -22,7 +22,17 @@
   <label for="end">Destination:</label>
   <input type="text" id="end" placeholder="Enter Destination">
 </div>
+
+<label for="LocationType">Desired Scenery:</label>
+<select name="LocationType" id="LocationType">
+  <option value="pittsburgh">Pittsburgh</option>
+  <option value="casino">Casino</option>
+  <option value="night_club">Night Club</option>
+  <option value="bar" selected>Bar</option>
+</select>
+
 <button id="show-route">Show Route</button>
+
 <div id="googleMap" style="height: 500px; width: 100%;"></div>
 </body>
 </html>

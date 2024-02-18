@@ -1,34 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset = "UTF-8">
-  <meta name="viewport" content = "width=device-width, initial-scale=1.0">
-  <title>Scenic Route Map</title>
-  <link rel="stylesheet" href="style.css"> 
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Google Maps Navigation</title>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDXTd7reskVOLr6IbqE5HM91IEStlxskQc&libraries=places"></script>
+<script src="script.js" defer></script>
 </head>
 <body>
-  <div class = "TitleName">
-    <div class = "container-fluid">
-      <h1>The Scenic Route</h1>
-    </div>
-
-    <div>
-      Start       : <input id="userLocation1">
-   
-      Destination : <input id="userLocation2">
-    </div>
-    <button>Go!</button>
-
-    <div class="container-fluid">
-      <div id="googleMap">
-
-      </div>
-      <div id="output">
-
-      </div>
-  </div>
-  </div>
-  <script id= "map" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDXTd7reskVOLr6IbqE5HM91IEStlxskQc&libraries=places"></script>
-  <script src="script.js"></script>
+<div>
+  <label for="start">Start:</label>
+  <input type="text" id="start" placeholder="Enter starting location">
+</div>
+<div>
+  <label for="end">End:</label>
+  <input type="text" id="end" placeholder="Enter destination">
+</div>
+<button id="show-route">Show Route</button>
+<div id="map" style="height: 400px; width: 100%;"></div>
 </body>
 </html>
+

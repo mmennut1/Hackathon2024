@@ -1,63 +1,50 @@
-var myLatLng = { lat: 42.0987, lng: -75.9180 };
-var mapOptions = {
-    center: myLatLng,
-    zoom: 7,
-    mapTypeId: google.maps.MapTypeId.ROADMAP
-
-};
-var input1 = document.getElementById('userLocation1').value;
-var input2 = document.getElementById('userLocation2').value;
-
-
-var map = new google.maps.Map(document.getElementById('googleMap'), mapOptions);
-
-var directionsService = new google.maps.DirectionsService();
-
-//create a DirectionsRenderer object which we will use to display the route
-var directionsDisplay = new google.maps.DirectionsRenderer();
-
-directionsDisplay.setMap(map);
-
-
-// EVERYTHING BELOW HERE IS BORROWED CODE. DONT KEEP IT AROUND, JUST WANTED TO USE IT FOR TESTING ATM
-function calcRoute() {
-    //create request
-    var request = {
-        origin: document.getElementById("from").value,
-        destination: document.getElementById("to").value,
-        travelMode: google.maps.TravelMode.DRIVING, //WALKING, BYCYCLING, TRANSIT
-        unitSystem: google.maps.UnitSystem.IMPERIAL
-    }
-
-    //pass the request to the route method
-    directionsService.route(request, function (result, status) {
-        if (status == google.maps.DirectionsStatus.OK) {
-
-            //Get distance and time
-            const output = document.querySelector('#output');
-            output.innerHTML = "<div class='alert-info'>From: " + document.getElementById("from").value + ".<br />To: " + document.getElementById("to").value + ".<br /> Driving distance <i class='fas fa-road'></i> : " + result.routes[0].legs[0].distance.text + ".<br />Duration <i class='fas fa-hourglass-start'></i> : " + result.routes[0].legs[0].duration.text + ".</div>";
-
-            //display route
-            directionsDisplay.setDirections(result);
-        } else {
-            //delete route from map
-            directionsDisplay.setDirections({ routes: [] });
-            //center map in London
-            map.setCenter(myLatLng);
-
-            //show error message
-            output.innerHTML = "<div class='alert-danger'><i class='fas fa-exclamation-triangle'></i> Could not retrieve driving distance.</div>";
-        }
+function initMap() {
+    const directionsService = new google.maps.DirectionsService();
+    const directionsRenderer = new google.maps.DirectionsRenderer();
+    const map = new google.maps.Map(document.getElementById("map"), {
+        zoom: 7,
+        center: { lat: 41.85, lng: -87.65 } // Default center (Chicago)
     });
+    directionsRenderer.setMap(map);
 
+    const startInput = document.getElementById("start");
+    const endInput = document.getElementById("end");
+
+    const startAutocomplete = new google.maps.places.Autocomplete(startInput);
+    startAutocomplete.bindTo("bounds", map);
+
+    const endAutocomplete = new google.maps.places.Autocomplete(endInput);
+    endAutocomplete.bindTo("bounds", map);
+
+    const onChangeHandler = function () {
+        calculateAndDisplayRoute(directionsService, directionsRenderer);
+    };
+    document.getElementById("show-route").addEventListener("click", onChangeHandler);
 }
 
-var options = {
-    types: ['(cities)']
+function calculateAndDisplayRoute(directionsService, directionsRenderer) {
+    const start = document.getElementById("start").value;
+    const end = document.getElementById("end").value;
+
+    // Set the intermediate waypoint to Pittsburgh
+    const pittsburgh = "Pittsburgh, Pennsylvania";
+
+    directionsService.route(
+        {
+            origin: start,
+            destination: end,
+            waypoints: [{ location: pittsburgh, stopover: true }],
+            optimizeWaypoints: true,
+            travelMode: google.maps.TravelMode.DRIVING,
+        },
+        (response, status) => {
+            if (status === "OK") {
+                directionsRenderer.setDirections(response);
+            } else {
+                window.alert("Directions request failed due to " + status);
+            }
+        }
+    );
 }
 
-var input1 = document.getElementById("from");
-var autocomplete1 = new google.maps.places.Autocomplete(input1, options);
-
-var input2 = document.getElementById("to");
-var autocomplete2 = new google.maps.places.Autocomplete(input2, options);
+window.onload = initMap;

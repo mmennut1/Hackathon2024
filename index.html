@@ -3,21 +3,27 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Google Maps Navigation</title>
+<title>Scenic Route Map</title>
+<link rel="stylesheet" href="style.css"> 
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDXTd7reskVOLr6IbqE5HM91IEStlxskQc&libraries=places"></script>
 <script src="script.js" defer></script>
 </head>
 <body>
+  <div class = "TitleName">
+    <div class = "container-fluid">
+      <h1>The Scenic Route</h1>
+    </div>
+  <div>
 <div>
-  <label for="start">Start:</label>
-  <input type="text" id="start" placeholder="Enter starting location">
+  <label for="start">Origin:</label>
+  <input type="text" id="start" placeholder="Enter Origin">
 </div>
 <div>
-  <label for="end">End:</label>
-  <input type="text" id="end" placeholder="Enter destination">
+  <label for="end">Destination:</label>
+  <input type="text" id="end" placeholder="Enter Destination">
 </div>
 <button id="show-route">Show Route</button>
-<div id="map" style="height: 400px; width: 100%;"></div>
+<div id="googleMap" style="height: 500px; width: 100%;"></div>
 </body>
 </html>
 

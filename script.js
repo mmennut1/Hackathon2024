@@ -34,14 +34,29 @@ function calculateAndDisplayRoute(directionsService, directionsRenderer, map) {
     const locationRadius = document.getElementById("radius").value;
 
     switch(placeType) {
+        case "Amusement Park":
+            placeType = "amusement_park";
+            break;
         case "Bar":
             placeType = "bar";
             break;
         case "Casino":
             placeType = "casino";
             break;
+        case "Cemetery":
+            placeType = "cemetery";
+            break;
+        case "Museum":
+            placeType = "museum";
+            break;
         case "Night Club":
             placeType = "night_club";
+            break;
+        case "Tourist Attraction":
+            placeType = "tourist_attraction";
+            break;
+        default:
+            console.error("Invalid type selection");
             break;
     }
 
@@ -86,10 +101,10 @@ function calculateAndDisplayRoute(directionsService, directionsRenderer, map) {
         placesService.nearbySearch(request, (results, status) => {
             if (status === google.maps.places.PlacesServiceStatus.OK) {
                 poi = results[0];
-                const marker = new google.maps.Marker({
+                /*const marker = new google.maps.Marker({
                     map,
                     position: poi.geometry.location,
-                });
+                });*/
                 directionsService.route(
                 {
                     origin: startLocation,

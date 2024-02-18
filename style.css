@@ -45,11 +45,17 @@ body {
     font-family: "Papyrus", fantasy;
 }
 
+#OriginDestination {
+    font-family: "Papyrus", fantasy;
+    text-align: center;
+    color: lavenderblush;
+    text-shadow: 4px 4px 4px black;
+}
+
 div {
     text-align: center;
     color: lavenderblush;
     padding: 10px;
-    text-shadow: 4px 4px 4px black;
 }
 
 input {
@@ -62,6 +68,7 @@ button {
     color: black;
     border: 4px ridge goldenrod;
     border-radius:10px;
+    font-size: 20px;
 }
 
 select{
@@ -69,4 +76,5 @@ select{
     font-family: "Papyrus", fantasy;
     border-radius:10px;
     border: 4px ridge goldenrod;
+    font-size: 18px;
   }

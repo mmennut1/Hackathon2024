@@ -14,13 +14,14 @@
       <h1>The Scenic Route</h1>
     </div>
   <div>
-<div>
+<div id = "OriginDestination">
   <label for="start">Origin:</label>
   <input type="text" id="start" placeholder="Enter Origin">
   <label for="end">Destination:</label>
   <input type="text" id="end" placeholder="Enter Destination">
 </div>
 
+<div id = "OriginDestination">
 <label for="LocationType">Desired Scenery:</label>
 <select name="LocationType" id="LocationType">
   <option value="pittsburgh">Pittsburgh</option>
@@ -28,14 +29,11 @@
   <option value="night_club">Night Club</option>
   <option value="bar" selected>Bar</option>
 </select>
-
-<button id="show-route">Show Route</button>
-
-<div>
 <label for="radius">Radius:</label>
-  <input type="text" id="radius" placeholder="Enter Radius">
+  <input type="text" id="radius" placeholder="Enter Radius (Meters)">
 </div>
 
+<button id="show-route">Show Route</button>
 <p> <br></p>
 
 <div id="googleMap" style="height: 500px; width: 100%;"></div>

@@ -103,14 +103,30 @@ select{
  }
 
  #righttext {
+    float: right;
+    color: lavenderblush;
+    text-shadow: 4px 4px 4px black;
+    width: 45%;
+ }
+ #righttext2 {
+    float: center;
+    color: lavenderblush;
+    text-shadow: 4px 4px 4px black;
+    width: 45%;
+    font-size: 40px;
+ }
+
+ #lefttext {
+    float: left;
     color: lavenderblush;
     text-shadow: 4px 4px 4px black;
     width: 45%;
  }
 
- #lefttext {
-    float: right;
+ #lefttext2 {
+    float: center;
     color: lavenderblush;
     text-shadow: 4px 4px 4px black;
     width: 45%;
+    font-size: 40px;
  }

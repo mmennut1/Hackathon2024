@@ -20,6 +20,7 @@ body {
     font-size: 25px;
     font-family: "Papyrus", fantasy;
     background-image: url("pattern.png");
+    background-position: left 20% top;
 }
 
 #googleMap {
@@ -118,7 +119,7 @@ select{
  }
 
  #lefttext {
-    center: left;
+    float: left;
     color: lavenderblush;
     text-shadow: 4px 4px 4px black;
     width: 45%;

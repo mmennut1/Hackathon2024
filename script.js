@@ -18,15 +18,15 @@ function initMap() {
     const endAutocomplete = new google.maps.places.Autocomplete(endInput);
     endAutocomplete.bindTo("bounds", map);
 
-    const placesService = new google.maps.PlacesService(map);
-
     const onChangeHandler = function () {
-        calculateAndDisplayRoute(directionsService, directionsRenderer, placesService);
+        calculateAndDisplayRoute(directionsService, directionsRenderer, map);
     };
     document.getElementById("show-route").addEventListener("click", onChangeHandler);
 }
 
-function calculateAndDisplayRoute(directionsService, directionsRenderer, placesService) {
+function calculateAndDisplayRoute(directionsService, directionsRenderer, map) {
+    const placesService = new google.maps.places.PlacesService(map);
+    
     const start = document.getElementById("start").value;
     const end = document.getElementById("end").value;
     let placeType = document.getElementById("LocationType").value;
@@ -44,11 +44,6 @@ function calculateAndDisplayRoute(directionsService, directionsRenderer, placesS
             break;
     }
 
-    console.log("Start:", start);
-    console.log("End:", end);
-    console.log("Place Type:", placeType);
-    console.log("Location Radius:", locationRadius);
-
     var request = {
         location: new google.maps.LatLng(42.0987, -75.9154),
         radius: locationRadius,
@@ -60,6 +55,10 @@ function calculateAndDisplayRoute(directionsService, directionsRenderer, placesS
     placesService.nearbySearch(request, (results, status) => {
         if (status === google.maps.places.PlacesServiceStatus.OK) {
             poi = results[0];
+            /*const marker = new google.maps.Marker({
+                map,
+                position: poi.geometry.location,
+              });*/
             directionsService.route(
                 {
                     origin: start,

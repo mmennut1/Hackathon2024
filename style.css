@@ -109,7 +109,7 @@ select{
     width: 45%;
  }
  #righttext2 {
-    float: center;
+    position: absolute;
     color: lavenderblush;
     text-shadow: 4px 4px 4px black;
     width: 45%;
@@ -117,14 +117,14 @@ select{
  }
 
  #lefttext {
-    float: left;
+    center: left;
     color: lavenderblush;
     text-shadow: 4px 4px 4px black;
     width: 45%;
  }
 
  #lefttext2 {
-    float: center;
+    position: absolute;
     color: lavenderblush;
     text-shadow: 4px 4px 4px black;
     width: 45%;

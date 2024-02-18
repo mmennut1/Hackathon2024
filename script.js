@@ -3,7 +3,7 @@ function initMap() {
     const directionsRenderer = new google.maps.DirectionsRenderer();
     const map = new google.maps.Map(document.getElementById('googleMap'), {
         zoom: 7,
-        center: { lat: 41.85, lng: -87.65 } // Default center (Chicago)
+        center: { lat: 42.0911, lng: -75.9693 } // Default center (Binghamton University)
     });
     directionsRenderer.setMap(map);
 

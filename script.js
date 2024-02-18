@@ -25,10 +25,11 @@ function initMap() {
 }
 
 function calculateAndDisplayRoute(directionsService, directionsRenderer, map) {
+    const geocodeService = new google.maps.Geocoder();
     const placesService = new google.maps.places.PlacesService(map);
-    
-    const start = document.getElementById("start").value;
-    const end = document.getElementById("end").value;
+
+    const startLocation = document.getElementById("start").value;
+    const endLocation = document.getElementById("end").value;
     let placeType = document.getElementById("LocationType").value;
     const locationRadius = document.getElementById("radius").value;
 
@@ -44,25 +45,62 @@ function calculateAndDisplayRoute(directionsService, directionsRenderer, map) {
             break;
     }
 
-    var request = {
-        location: new google.maps.LatLng(42.0987, -75.9154),
-        radius: locationRadius,
-        type: [placeType],
-        rankby: google.maps.places.RankBy.PROMINENCE
-    };
+    //calculate midpoint here
+    let lat;
+    let lng;
+    geocodeService.geocode({ address: startLocation }, (results1, status1) => {
+        if (status1 === "OK" && results1[0]) {
+            const startLat = results1[0].geometry.location.lat();
+            const startLng = results1[0].geometry.location.lng();
 
-    let poi;
-    placesService.nearbySearch(request, (results, status) => {
-        if (status === google.maps.places.PlacesServiceStatus.OK) {
-            poi = results[0];
-            /*const marker = new google.maps.Marker({
-                map,
-                position: poi.geometry.location,
-              });*/
-            directionsService.route(
+            console.log(startLat + " " + startLng);
+
+            geocodeService.geocode({ address: endLocation }, (results2, status2) => {
+                if (status2 === "OK" && results2[0]) {
+                    const endLat = results2[0].geometry.location.lat();
+                    const endLng = results2[0].geometry.location.lng();
+
+                    console.log(endLat + " " + endLng);
+
+                    // Calculate midpoint coordinates
+                    lat = (startLat + endLat) / 2;
+                    lng = (startLng + endLng) / 2;
+
+                    console.log(lat + " " + lng);
+
+                } 
+                else {
+                    console.error("Geocode for end location failed with status:", status2);
+                }
+            });
+        } 
+        else {
+            console.error("Geocode for start location failed with status:", status1);
+        }
+    });
+
+    setTimeout(function() {
+        console.log("Print 2: " + lat + " " + lng);
+
+        var request = {
+            location: new google.maps.LatLng(lat, lng),
+            radius: locationRadius,
+            type: [placeType],
+            rankby: google.maps.places.RankBy.PROMINENCE
+        }; 
+
+        let poi;
+        placesService.nearbySearch(request, (results, status) => {
+            if (status === google.maps.places.PlacesServiceStatus.OK) {
+                poi = results[0];
+                const marker = new google.maps.Marker({
+                    map,
+                    position: poi.geometry.location,
+                });
+                directionsService.route(
                 {
-                    origin: start,
-                    destination: end,
+                    origin: startLocation,
+                    destination: endLocation,
                     waypoints: [{ location: poi.geometry.location, stopover: true }],
                     optimizeWaypoints: true,
                     travelMode: google.maps.TravelMode.DRIVING,
@@ -75,10 +113,13 @@ function calculateAndDisplayRoute(directionsService, directionsRenderer, map) {
                     }
                 }
             );
-        } else {
+        } 
+        else {
             window.alert("Places service failed due to " + status);
         }
     });
+    }, 250);
+
 }
 
 window.onload = initMap;

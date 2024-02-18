@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Scenic Route Map</title>
 <link rel="stylesheet" href="style.css"> 
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDXTd7reskVOLr6IbqE5HM91IEStlxskQc&libraries=places"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDEJFWDIyTM7RdBnz6kQdriTeTtueokEP0&libraries=places"></script>
 <script src="script.js" defer></script>
 </head>
 <body>
@@ -30,9 +30,14 @@
 </select>
 
 <button id="show-route">Show Route</button>
+
+<div>
+<label for="radius">Radius:</label>
+  <input type="text" id="radius" placeholder="Enter Radius">
+</div>
+
 <p> <br></p>
 
 <div id="googleMap" style="height: 500px; width: 100%;"></div>
 </body>
 </html>
-

@@ -16,13 +16,15 @@ h1{
 
 body {
     margin: 0;
+    font-weight: bold;
+    font-size: 25px;
     font-family: "Papyrus", fantasy;
     background-image: url("pattern.png");
 }
 
 #googleMap {
     width: 100%;
-    height: 400px;
+    height: 800px;
     border: 10px ridge goldenrod;
     border-radius:30px;
 }
@@ -45,11 +47,19 @@ body {
     font-family: "Papyrus", fantasy;
 }
 
+
+#OriginDestination {
+    font-family: "Papyrus", fantasy;
+    text-align: center;
+    color: lavenderblush;
+    text-shadow: 4px 4px 4px black;
+}
+
 div {
     text-align: center;
     color: lavenderblush;
     padding: 10px;
-    text-shadow: 4px 4px 4px black;
+    font-weight: bold;
 }
 
 input {
@@ -62,6 +72,7 @@ button {
     color: black;
     border: 4px ridge goldenrod;
     border-radius:10px;
+    font-size: 20px;
 }
 
 select{
@@ -69,4 +80,54 @@ select{
     font-family: "Papyrus", fantasy;
     border-radius:10px;
     border: 4px ridge goldenrod;
+    font-size: 18px;
   }
+
+  #rightimg{
+    width: 45%;
+    float: right;
+    border: 10px ridge goldenrod;
+    border-radius:30px;
+  }
+
+#leftimg{
+    width: 45%;
+    float: left;
+    border: 10px ridge goldenrod;
+    border-radius:30px;
+  }
+
+#bottom{
+    float: center;
+    color: lavenderblush;
+    text-shadow: 4px 4px 4px black;
+ }
+
+ #righttext {
+    float: right;
+    color: lavenderblush;
+    text-shadow: 4px 4px 4px black;
+    width: 45%;
+ }
+ #righttext2 {
+    float: center;
+    color: lavenderblush;
+    text-shadow: 4px 4px 4px black;
+    width: 45%;
+    font-size: 40px;
+ }
+
+ #lefttext {
+    float: left;
+    color: lavenderblush;
+    text-shadow: 4px 4px 4px black;
+    width: 45%;
+ }
+
+ #lefttext2 {
+    float: center;
+    color: lavenderblush;
+    text-shadow: 4px 4px 4px black;
+    width: 45%;
+    font-size: 40px;
+ }

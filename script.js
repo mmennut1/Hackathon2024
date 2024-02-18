@@ -1,7 +1,9 @@
 function initMap() {
     const directionsService = new google.maps.DirectionsService();
+
     const directionsRenderer = new google.maps.DirectionsRenderer();
-    const map = new google.maps.Map(document.getElementById('googleMap'), {
+
+    const map = new google.maps.Map(document.getElementById("googleMap"), {
         zoom: 7,
         center: { lat: 42.0911, lng: -75.9693 } // Default center (Binghamton University)
     });
@@ -17,34 +19,100 @@ function initMap() {
     endAutocomplete.bindTo("bounds", map);
 
     const onChangeHandler = function () {
-        calculateAndDisplayRoute(directionsService, directionsRenderer);
+        calculateAndDisplayRoute(directionsService, directionsRenderer, map);
     };
     document.getElementById("show-route").addEventListener("click", onChangeHandler);
 }
 
-function calculateAndDisplayRoute(directionsService, directionsRenderer) {
-    const start = document.getElementById("start").value;
-    const end = document.getElementById("end").value;
+function calculateAndDisplayRoute(directionsService, directionsRenderer, map) {
+    const geocodeService = new google.maps.Geocoder();
+    const placesService = new google.maps.places.PlacesService(map);
 
-    // Set the intermediate waypoint to Pittsburgh
-    const pittsburgh = "Pittsburgh, Pennsylvania";
+    const startLocation = document.getElementById("start").value;
+    const endLocation = document.getElementById("end").value;
+    let placeType = document.getElementById("LocationType").value;
+    const locationRadius = document.getElementById("radius").value;
 
-    directionsService.route(
-        {
-            origin: start,
-            destination: end,
-            waypoints: [{ location: pittsburgh, stopover: true }],
-            optimizeWaypoints: true,
-            travelMode: google.maps.TravelMode.DRIVING,
-        },
-        (response, status) => {
-            if (status === "OK") {
-                directionsRenderer.setDirections(response);
-            } else {
-                window.alert("Directions request failed due to " + status);
-            }
+    switch(placeType) {
+        case "Bar":
+            placeType = "bar";
+            break;
+        case "Casino":
+            placeType = "casino";
+            break;
+        case "Night Club":
+            placeType = "night_club";
+            break;
+    }
+
+    //calculate midpoint here
+    let lat;
+    let lng;
+    geocodeService.geocode({ address: startLocation }, (results1, status1) => {
+        if (status1 === "OK" && results1[0]) {
+            const startLat = results1[0].geometry.location.lat();
+            const startLng = results1[0].geometry.location.lng();
+
+            geocodeService.geocode({ address: endLocation }, (results2, status2) => {
+                if (status2 === "OK" && results2[0]) {
+                    const endLat = results2[0].geometry.location.lat();
+                    const endLng = results2[0].geometry.location.lng();
+
+                    // Calculate midpoint coordinates
+                    lat = (startLat + endLat) / 2;
+                    lng = (startLng + endLng) / 2;
+
+                } 
+                else {
+                    console.error("Geocode for end location failed with status:", status2);
+                }
+            });
+        } 
+        else {
+            console.error("Geocode for start location failed with status:", status1);
         }
-    );
+    });
+
+    setTimeout(function() {
+
+        var request = {
+            location: new google.maps.LatLng(lat, lng),
+            radius: locationRadius,
+            type: [placeType],
+            rankby: google.maps.places.RankBy.PROMINENCE
+        }; 
+
+        let poi;
+        placesService.nearbySearch(request, (results, status) => {
+            if (status === google.maps.places.PlacesServiceStatus.OK) {
+                poi = results[0];
+                const marker = new google.maps.Marker({
+                    map,
+                    position: poi.geometry.location,
+                });
+                directionsService.route(
+                {
+                    origin: startLocation,
+                    destination: endLocation,
+                    waypoints: [{ location: poi.geometry.location, stopover: true }],
+                    optimizeWaypoints: true,
+                    travelMode: google.maps.TravelMode.DRIVING,
+                },
+                (response, status) => {
+                    if (status === "OK") {
+                        directionsRenderer.setDirections(response);
+                    } else {
+                        window.alert("Directions request failed due to " + status);
+                    }
+                }
+            );
+        } 
+        else {
+            window.alert("Places service failed due to " + status);
+        }
+    });
+    }, 250);
+
 }
 
 window.onload = initMap;

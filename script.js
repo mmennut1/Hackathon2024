@@ -53,20 +53,14 @@ function calculateAndDisplayRoute(directionsService, directionsRenderer, map) {
             const startLat = results1[0].geometry.location.lat();
             const startLng = results1[0].geometry.location.lng();
 
-            console.log(startLat + " " + startLng);
-
             geocodeService.geocode({ address: endLocation }, (results2, status2) => {
                 if (status2 === "OK" && results2[0]) {
                     const endLat = results2[0].geometry.location.lat();
                     const endLng = results2[0].geometry.location.lng();
 
-                    console.log(endLat + " " + endLng);
-
                     // Calculate midpoint coordinates
                     lat = (startLat + endLat) / 2;
                     lng = (startLng + endLng) / 2;
-
-                    console.log(lat + " " + lng);
 
                 } 
                 else {
@@ -80,7 +74,6 @@ function calculateAndDisplayRoute(directionsService, directionsRenderer, map) {
     });
 
     setTimeout(function() {
-        console.log("Print 2: " + lat + " " + lng);
 
         var request = {
             location: new google.maps.LatLng(lat, lng),

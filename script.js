@@ -52,6 +52,9 @@ function calculateAndDisplayRoute(directionsService, directionsRenderer, map) {
         case "Night Club":
             placeType = "night_club";
             break;
+        case "Park":
+            placeType = "park";
+            break;
         case "Tourist Attraction":
             placeType = "tourist_attraction";
             break;
